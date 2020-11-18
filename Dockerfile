@@ -19,22 +19,22 @@ RUN pip install --upgrade streamlit pycaret
 # copying all files over
 COPY . /app
 
+# streamlit-specific commands for config
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+RUN mkdir -p ~/.streamlit
+RUN bash -c 'echo -e "\
+[general]\n\
+email = \"\"\n\
+" > ~/.streamlit/credentials.toml'
+
+RUN bash -c 'echo -e "\
+[server]\n\
+enableCORS = false\n\
+" > ~/.streamlit/config.toml'
+
 # Expose port 
 ENV PORT 8501
 
 # cmd to launch app when container is run
 CMD streamlit run app.py
-
-# streamlit-specific commands for config
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
-RUN mkdir -p /app/.streamlit
-RUN bash -c 'echo -e "\
-[general]\n\
-email = \"\"\n\
-" > /app/.streamlit/credentials.toml'
-
-RUN bash -c 'echo -e "\
-[server]\n\
-enableCORS = false\n\
-" > /app/.streamlit/config.toml'
