@@ -1,5 +1,9 @@
 FROM python:3.7
 
+RUN groupadd -g 999 appuser && \
+    useradd -r -u 999 -g appuser appuser
+USER appuser
+
 RUN pip install virtualenv
 ENV VIRTUAL_ENV=/venv
 RUN virtualenv venv -p python3
