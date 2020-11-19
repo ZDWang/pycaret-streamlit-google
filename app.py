@@ -11,7 +11,6 @@ def predict(model, input_df):
     return predictions
 
 def run():
-
     from PIL import Image
     image = Image.open('logo.png')
     image_hospital = Image.open('hospital.jpg')
