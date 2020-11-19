@@ -1,2 +1,5 @@
 docker build -t insurance-streamlit:v1 .
 docker run -p 8501:8501 insurance-streamlit:v1
+
+
+image-registry.openshift-image-registry.svc:5000/mongodb/pycaret-streamlit-google

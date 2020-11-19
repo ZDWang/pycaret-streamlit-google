@@ -13,7 +13,6 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-
 #################
 # RUNTIME IMAGE #
 #################
@@ -25,6 +24,10 @@ ARG USER_ID=1000
 ENV USER_ID $USER_ID
 ARG GROUP_ID=1000
 ENV GROUP_ID $GROUP_ID
+
+RUN groupadd -r swuser -g 433 && \
+useradd -u 431 -r -g swuser -d <homedir> -s /sbin/nologin -c "Docker image user" swuser && \
+chown -R swuser:swuser <homedir>
 
 # add non-root user and give permissions to workdir
 RUN groupadd --gid $GROUP_ID user && \
@@ -66,5 +69,5 @@ ENV PATH="/opt/venv/bin:$PATH"
 # Expose port 
 ENV PORT 8501
 
-# Run streamlit
+# Run streamlit\
 CMD streamlit run app.py
