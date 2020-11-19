@@ -23,32 +23,30 @@ FROM python:3.7 AS runtime
 
 # setup user and group ids
 
-#ARG USER_ID=1000
-#ENV USER_ID $USER_ID
-#ARG GROUP_ID=1000
-#ENV GROUP_ID $GROUP_ID
+ARG USER_ID=1000
+ENV USER_ID $USER_ID
+ARG GROUP_ID=1000
+ENV GROUP_ID $GROUP_ID
 
 # add non-root user and give permissions to workdir
-#RUN groupadd --gid $GROUP_ID user && \
-#          adduser user --ingroup user --gecos '' --disabled-password --uid $USER_ID && \
-#          mkdir -p /usr/src/app && \
-#          chown -R user:user /usr/src/app
+RUN groupadd --gid $GROUP_ID user && \
+          adduser user --ingroup user --gecos '' --disabled-password --uid $USER_ID && \
+          mkdir -p /home/user/app && \
+          chown -R user:user /home/user/app
 
 # copy from build image
-#COPY --chown=user:user --from=build /opt/venv /opt/venv
-COPY --from=build /opt/venv /opt/venv
+COPY --chown=user:user --from=build /opt/venv /opt/venv
+#COPY --from=build /opt/venv /opt/venv
 
 # set working directory
-#WORKDIR /usr/src/app
-WORKDIR /app
-
-RUN chgrp -R 0 /app && chmod -R g=u /app
+WORKDIR /home/user/app
+#WORKDIR /app
 
 # switch to non-root user
-#USER user
+USER user
 # copying all files over
-#COPY --chown=user:user . /usr/src/app
-COPY . /app
+COPY --chown=user:user . /home/user/app
+#COPY . /app
 
 # disables lag in stdout/stderr output
 ENV PYTHONUNBUFFERED 1
