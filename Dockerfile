@@ -64,7 +64,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Expose port 
-ENV PORT 8501
+#ENV PORT 8501
+ENV PORT 8080
 
 # Run streamlit
 CMD streamlit run app.py
