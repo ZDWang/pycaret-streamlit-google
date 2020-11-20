@@ -59,5 +59,6 @@ ENV PATH="/opt/venv/bin:$PATH"
 ENV PORT 8501
 
 # Run streamlit
-#CMD streamlit run app.py
 CMD /bin/bash
+#CMD streamlit run app.py
+
